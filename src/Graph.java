@@ -1,59 +1,66 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.HashSet;
 
-public class Graph<Label>  {
+public class Graph<Label> {
 
-    private class Edge {
-        public int source;
-        public int destination;
-        public Label label;
+    private HashMap<Integer, LinkedList<Edge<Label>>> adjacencyList;  // HashMap for adjacency lists
+    private int maxSize;  // Maximum number of vertices allowed
+    private Set<Integer> uniqueVertices;  // Set to track unique vertices
 
-        public Edge(int from, int to, Label label) {
-            this.source = from;
-            this.destination = to;
-            this.label = label;
-        }
+    // Default constructor: Initializes an empty graph with no size limit
+    public Graph() {
+        adjacencyList = new HashMap<>();
+        uniqueVertices = new HashSet<>();
+        maxSize = Integer.MAX_VALUE;  // No limit by default
     }
 
-    private int cardinal;
-    private ArrayList<LinkedList<Edge>> incidency;
-
-
+    // Constructor to initialize graph with a specified size (max number of vertices)
     public Graph(int size) {
-        cardinal = size;
-        incidency = new ArrayList<LinkedList<Edge>>(size+1);
-        for (int i = 0;i<cardinal;i++) {
-            incidency.add(i, new LinkedList<Edge>());
-        }
+        adjacencyList = new HashMap<>(size);
+        uniqueVertices = new HashSet<>();
+        maxSize = size;
     }
 
-    public int order() {
-        return cardinal;
-    }
-
+    // Method to add an arc between two vertices, source and dest, with a label
     public void addArc(int source, int dest, Label label) throws Exception {
-	if (Math.max(source,dest) >= this.cardinal){
-	    throw new Exception("Sommets trop gros pour la taille du graphe");
-	}
-        incidency.get(source).addLast(new Edge(source,dest,label));
+        // Check if the vertices would exceed the maximum number allowed
+        if (!uniqueVertices.contains(source)) {
+            if (uniqueVertices.size() >= maxSize) {
+                throw new Exception("Maximum number of vertices reached. Cannot add more.");
+            }
+            uniqueVertices.add(source);
+        }
+
+        if (!uniqueVertices.contains(dest)) {
+            if (uniqueVertices.size() >= maxSize) {
+                throw new Exception("Maximum number of vertices reached. Cannot add more.");
+            }
+            uniqueVertices.add(dest);
+        }
+
+        // Ensure the source vertex has a list of edges in the adjacency list
+        adjacencyList.putIfAbsent(source, new LinkedList<>());
+
+        // Add the new edge to the adjacency list for the source vertex
+        adjacencyList.get(source).addLast(new Edge<>(source, dest, label));
+
+        //  ensure destination exists even if it has no outgoing edges
+        adjacencyList.putIfAbsent(dest, new LinkedList<>());
     }
 
+
+
+
+    // Override the toString method for a more detailed output of the graph
+    @Override
     public String toString() {
-        String result = new String("");
-        result = result.concat("Nombre sommets : " + cardinal + "\n");
-        result = result.concat("Sommets : \n");
-        for (int i = 0; i<cardinal;i++) {
-	    result = result.concat(i + " ");
-		}
-        result = result.concat("\nArcs : \n");
-        for (int i = 0; i<cardinal;i++) {
-            for (Edge e : incidency.get(i)) {
-                result = result.concat(e.source + " -> " + e.destination + ", étiquette : "
-				       + e.label.toString() + "\n");
-            }
+        StringBuilder result = new StringBuilder();
+        result.append("Graph adjacency list:\n");
+        for (Integer vertex : adjacencyList.keySet()) {
+            result.append("Vertex ").append(vertex).append(": ").append(adjacencyList.get(vertex).toString()).append("\n");
         }
-        return result;
-	
+        return result.toString();
     }
-    
 }
