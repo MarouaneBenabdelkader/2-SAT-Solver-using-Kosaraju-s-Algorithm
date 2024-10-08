@@ -50,8 +50,16 @@ public class Graph<Label> {
         adjacencyList.putIfAbsent(dest, new LinkedList<>());
     }
 
+    // Method to get the neighbors of a vertex
+    public LinkedList<Edge<Label>> getNeighbors(int vertex) {
+
+        return adjacencyList.get(vertex);
+    }
 
 
+    public Set<Integer> getVertices() {
+        return uniqueVertices;
+    }
 
     // Override the toString method for a more detailed output of the graph
     @Override
