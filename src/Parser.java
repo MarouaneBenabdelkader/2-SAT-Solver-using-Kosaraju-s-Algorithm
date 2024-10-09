@@ -31,7 +31,12 @@ public class Parser {
                 // Process each clause (lines containing literals and ending with 0)
                 String[] literals = line.split("\\s+");
                 if (literals.length >= 3 && literals[literals.length - 1].equals("0")) {
+                    // Extract the two literals from the clause
+                    int literalA = Integer.parseInt(literals[0]);
+                    int literalB = Integer.parseInt(literals[1]);
 
+                    // Add arcs to the graph based on each clause literals
+                    addArcs(graph, literalA, literalB);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -40,6 +45,17 @@ public class Parser {
         }
 
         return graph;
+    }
+
+    // Add arcs to the graph based on each clause literals
+    private static void addArcs(Graph<String> graph, int literalA, int literalB) throws Exception {
+        // Arc: ¬A -> B
+        int notA = -literalA;  // ¬A
+        graph.addArc(notA, literalB, "arc");  // ¬A -> B
+
+        // Arc: ¬B -> A
+        int notB = -literalB;  // ¬B
+        graph.addArc(notB, literalA, "arc");  // ¬B -> A
     }
 
 }
