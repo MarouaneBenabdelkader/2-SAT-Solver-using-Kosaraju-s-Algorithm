@@ -49,13 +49,13 @@ public class Parser {
 
     // Add arcs to the graph based on each clause literals
     private static void addArcs(Graph<String> graph, int literalA, int literalB) throws Exception {
-        // Arc: ¬A -> B
+        // Implication 1: ¬A => B
         int notA = -literalA;  // ¬A
-        graph.addArc(notA, literalB, "arc");  // ¬A -> B
+        graph.addArc(notA, literalB, notA + " -> " + literalB);  // ¬A -> B
 
-        // Arc: ¬B -> A
+        // Implication 1: ¬B -> A
         int notB = -literalB;  // ¬B
-        graph.addArc(notB, literalA, "arc");  // ¬B -> A
+        graph.addArc(notB, literalA, notB + " -> " + literalA);  // ¬B -> A
     }
 
 }
