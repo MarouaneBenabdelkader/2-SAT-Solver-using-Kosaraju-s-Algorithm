@@ -3,63 +3,49 @@ import java.util.*;
 public class DFS<Label> {
     private Graph<Label> graph;  // The graph on which DFS is performed
     private Set<Integer> visited;  // Tracks visited nodes during DFS
-    private Stack<Integer> finishStack;  // Stores nodes based on their finishing times (used in first pass)
 
     // Constructor to initialize DFS with a graph
     public DFS(Graph<Label> graph) {
         this.graph = graph;
         this.visited = new HashSet<>();
-        this.finishStack = new Stack<>();
     }
 
-    // First pass DFS to calculate finishing times
-    public void dfsFirstPass() {
-        for (Integer vertex : graph.getVertices()) {
-            if (!visited.contains(vertex)) {
-                dfsVisitFirstPass(vertex);  // Visit vertex and explore its neighbors
-            }
-        }
+    // Resets the visited set to allow fresh DFS traversal
+    public void resetVisited() {
+        visited.clear();
     }
 
-    // Helper method to perform DFS for the first pass
-    private void dfsVisitFirstPass(Integer vertex) {
+    /**
+     * General DFS method that can either push vertices into a finishStack (first pass)
+     * or collect them into a currentSCC set (second pass) based on the provided arguments.
+     *
+     * @param vertex The starting vertex for DFS.
+     * @param finishStack A stack to collect vertices based on finishing times (used in the first pass).
+     * @param currentSCC A set to collect vertices that belong to the current SCC (used in the second pass).
+     */
+    public void performDFS(Integer vertex, Stack<Integer> finishStack, Set<Integer> currentSCC) {
         visited.add(vertex);
+
+        // If we're collecting an SCC, add the vertex to the current SCC set
+        if (currentSCC != null) {
+            currentSCC.add(vertex);
+        }
+
+        // Recursively visit neighbors
         for (Edge<Label> neighbor : graph.getNeighbors(vertex)) {
             if (!visited.contains(neighbor.destination)) {
-                dfsVisitFirstPass(neighbor.destination);  // Recursive DFS
+                performDFS(neighbor.destination, finishStack, currentSCC);  // Recursive DFS
             }
         }
-        finishStack.push(vertex);  // When fully explored, push vertex onto the finish stack
-    }
 
-    // Second pass DFS to collect SCCs
-    public void dfsSecondPass(Graph<Label> transposedGraph, List<Set<Integer>> SCCs) {
-        visited.clear();  // Reset visited set for the second DFS pass
-
-        while (!finishStack.isEmpty()) {
-            Integer vertex = finishStack.pop();  // Process nodes in the order of finishing times
-            if (!visited.contains(vertex)) {
-                Set<Integer> currentSCC = new HashSet<>();  // Create a new SCC set
-                dfsVisitSecondPass(transposedGraph, vertex, currentSCC);
-                SCCs.add(currentSCC);  // Add the collected SCC to the list of SCCs
-            }
+        // If we're calculating finishing times, push the vertex onto the finish stack
+        if (finishStack != null) {
+            finishStack.push(vertex);
         }
     }
 
-    // Helper method to perform DFS for the second pass and collect nodes into an SCC
-    private void dfsVisitSecondPass(Graph<Label> transposedGraph, Integer vertex, Set<Integer> currentSCC) {
-        visited.add(vertex);
-        currentSCC.add(vertex);  // Add the vertex to the current SCC
-        for (Edge<Label> neighbor : transposedGraph.getNeighbors(vertex)) {
-            if (!visited.contains(neighbor.destination)) {
-                dfsVisitSecondPass(transposedGraph, neighbor.destination, currentSCC);  // Recursive DFS
-            }
-        }
+    // Check if a vertex is visited
+    public boolean isVisited(Integer vertex) {
+        return visited.contains(vertex);
     }
-
-    // Returns the finish stack after the first pass DFS (used for second pass ordering)
-    public Stack<Integer> getFinishStack() {
-        return finishStack;
-    }
-
 }
