@@ -1,30 +1,35 @@
 import java.util.*;
 
-public class DFS {
+public class DFS<Label> {
+    private Graph<Label> graph;  // The graph on which DFS is performed
+    private Set<Integer> visited;  // Tracks visited nodes during DFS
+    private Stack<Integer> finishStack;  // Stores nodes based on their finishing times (used in first pass)
 
-    // Perform DFS starting from vertex `v`
-    public static void dfs(Graph<String> graph, int v, boolean[] visited, Stack<Integer> stack) {
-        visited[v] = true;
-
-        for (Edge<String> edge : graph.getNeighbors(v)) {
-            if (!visited[edge.destination]) {
-                dfs(graph, edge.destination, visited, stack);
-            }
-        }
-
-        // After visiting all neighbors, add the vertex to the stack
-        stack.push(v);
+    // Constructor to initialize DFS with a graph
+    public DFS(Graph<Label> graph) {
+        this.graph = graph;
+        this.visited = new HashSet<>();
+        this.finishStack = new Stack<>();
     }
 
-    // Another DFS function to explore the graph for Kosaraju's second pass
-    public static void dfsForComponent(Graph<String> graph, int v, boolean[] visited, List<Integer> component) {
-        visited[v] = true;
-        component.add(v);
-
-        for (Edge<String> edge : graph.getNeighbors(v)) {
-            if (!visited[edge.destination]) {
-                dfsForComponent(graph, edge.destination, visited, component);
+    // First pass DFS to calculate finishing times
+    public void dfsFirstPass() {
+        for (Integer vertex : graph.getVertices()) {
+            if (!visited.contains(vertex)) {
+                dfsVisitFirstPass(vertex);  // Visit vertex and explore its neighbors
             }
         }
     }
+
+    // Helper method to perform DFS for the first pass
+    private void dfsVisitFirstPass(Integer vertex) {
+        visited.add(vertex);
+        for (Edge<Label> neighbor : graph.getNeighbors(vertex)) {
+            if (!visited.contains(neighbor.destination)) {
+                dfsVisitFirstPass(neighbor.destination);  // Recursive DFS
+            }
+        }
+        finishStack.push(vertex);  // When fully explored, push vertex onto the finish stack
+    }
+
 }
