@@ -32,4 +32,34 @@ public class DFS<Label> {
         finishStack.push(vertex);  // When fully explored, push vertex onto the finish stack
     }
 
+    // Second pass DFS to collect SCCs
+    public void dfsSecondPass(Graph<Label> transposedGraph, List<Set<Integer>> SCCs) {
+        visited.clear();  // Reset visited set for the second DFS pass
+
+        while (!finishStack.isEmpty()) {
+            Integer vertex = finishStack.pop();  // Process nodes in the order of finishing times
+            if (!visited.contains(vertex)) {
+                Set<Integer> currentSCC = new HashSet<>();  // Create a new SCC set
+                dfsVisitSecondPass(transposedGraph, vertex, currentSCC);
+                SCCs.add(currentSCC);  // Add the collected SCC to the list of SCCs
+            }
+        }
+    }
+
+    // Helper method to perform DFS for the second pass and collect nodes into an SCC
+    private void dfsVisitSecondPass(Graph<Label> transposedGraph, Integer vertex, Set<Integer> currentSCC) {
+        visited.add(vertex);
+        currentSCC.add(vertex);  // Add the vertex to the current SCC
+        for (Edge<Label> neighbor : transposedGraph.getNeighbors(vertex)) {
+            if (!visited.contains(neighbor.destination)) {
+                dfsVisitSecondPass(transposedGraph, neighbor.destination, currentSCC);  // Recursive DFS
+            }
+        }
+    }
+
+    // Returns the finish stack after the first pass DFS (used for second pass ordering)
+    public Stack<Integer> getFinishStack() {
+        return finishStack;
+    }
+
 }
