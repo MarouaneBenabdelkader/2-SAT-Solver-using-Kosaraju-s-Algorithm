@@ -29,7 +29,7 @@ public class Main {
                 List<Set<Integer>> SCCs = kosaraju.findStronglyConnectedComponents();
 
                 // Check the satisfiability using the TwoSatSolver
-                TwoSatSolver twoSatSolver = new TwoSatSolver(graph, cnfParser.getNumVariables());
+                TwoSatSolver twoSatSolver = new TwoSatSolver(graph);
                 boolean satisfiable = twoSatSolver.checkSatisfiability();
 
                 // Print result for the current file
