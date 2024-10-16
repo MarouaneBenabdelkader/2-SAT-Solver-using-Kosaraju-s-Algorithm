@@ -5,6 +5,7 @@ public class CNFParser implements Parser {
     private Graph<String> implicationGraph;  // Stores the graph of implications
     private int numVariables;  // Number of variables in the problem
     private int numClauses;  // Number of clauses in the file
+    private int counter = 0;
 
     // Constructor initializes the graph and other attributes
     public CNFParser() {
@@ -50,9 +51,10 @@ public class CNFParser implements Parser {
     // Adds implications to the graph based on the clause literals
     private void addImplications(int literalA, int literalB) throws Exception {
         int notA = -literalA;
-        implicationGraph.addArc(notA, literalB, "Implication");
+        implicationGraph.addArc(notA, literalB, "Implication " + ++counter);
         int notB = -literalB;
-        implicationGraph.addArc(notB, literalA, "Implication");
+        counter++;
+        implicationGraph.addArc(notB, literalA, "Implication" + ++counter);
     }
 
     // Getter for the implication graph

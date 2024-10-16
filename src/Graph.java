@@ -1,11 +1,11 @@
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
 public class Graph<Label> {
 
-    private HashMap<Integer, LinkedList<Edge<Label>>> adjacencyList;  // HashMap for adjacency lists
+    private HashMap<Integer, ArrayList<Edge<Label>>> adjacencyList;  // HashMap for adjacency lists
     private int maxSize;  // Maximum number of vertices allowed
     private Set<Integer> uniqueVertices;  // Set to track unique vertices
 
@@ -41,21 +41,19 @@ public class Graph<Label> {
         }
 
         // Ensure the source vertex has a list of edges in the adjacency list
-        adjacencyList.putIfAbsent(source, new LinkedList<>());
+        adjacencyList.putIfAbsent(source, new ArrayList<>());
 
         // Add the new edge to the adjacency list for the source vertex
-        adjacencyList.get(source).addLast(new Edge<>(source, dest, label));
+        adjacencyList.get(source).add(new Edge<>(source, dest, label));
 
-        //  ensure destination exists even if it has no outgoing edges
-        adjacencyList.putIfAbsent(dest, new LinkedList<>());
+        // Ensure destination exists even if it has no outgoing edges
+        adjacencyList.putIfAbsent(dest, new ArrayList<>());
     }
 
     // Method to get the neighbors of a vertex
-    public LinkedList<Edge<Label>> getNeighbors(int vertex) {
-
+    public ArrayList<Edge<Label>> getNeighbors(int vertex) {
         return adjacencyList.get(vertex);
     }
-
 
     public Set<Integer> getVertices() {
         return uniqueVertices;
