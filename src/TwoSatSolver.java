@@ -1,16 +1,13 @@
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class TwoSatSolver {
     private Graph<String> implicationGraph;
-    private int numVariables;
     private Kosaraju<String> kosaraju;
 
     // Constructor
-    public TwoSatSolver(Graph<String> implicationGraph, int numVariables) {
-        this.numVariables = numVariables;
+    public TwoSatSolver(Graph<String> implicationGraph) {
         this.kosaraju = new Kosaraju<>(implicationGraph);
     }
 
@@ -19,25 +16,24 @@ public class TwoSatSolver {
         // Run Kosaraju's algorithm to get the SCCs
         List<Set<Integer>> SCCs = kosaraju.findStronglyConnectedComponents();
 
-        // Create a map to track which SCC each vertex belongs to
-        Map<Integer, Integer> vertexToSCC = new HashMap<>();
-        for (int i = 0; i < SCCs.size(); i++) {
-            for (Integer vertex : SCCs.get(i)) {
-                vertexToSCC.put(vertex, i);
-            }
-        }
+        // Loop over each SCC to check for a literal and its negation
+        for (Set<Integer> scc : SCCs) {
+            Set<Integer> trackedLiterals = new HashSet<>();  // Track the literals we see in this SCC
 
-        // Check if any literal and its negation are in the same SCC
-        for (int i = 1; i <= numVariables; i++) {
-            Integer literal = i;
-            Integer negLiteral = -i;
-            if (vertexToSCC.containsKey(literal) && vertexToSCC.containsKey(negLiteral)) {
-                if (vertexToSCC.get(literal).equals(vertexToSCC.get(negLiteral))) {
-                    return false;  // UNSATISFIABLE
+            // Check if both a literal and its negation exist in this SCC
+            for (Integer literal : scc) {
+                int negation = -literal;
+
+                // If we already saw the negation of the current literal, it's unsatisfiable
+                if (trackedLiterals.contains(negation)) {
+                    return false;  // UNSATISFIABLE: found literal and its negation in the same SCC
                 }
+
+                // Track this literal
+                trackedLiterals.add(literal);
             }
         }
 
-        return true;
+        return true;  // SATISFIABLE: no literal and its negation were found in the same SCC
     }
 }
