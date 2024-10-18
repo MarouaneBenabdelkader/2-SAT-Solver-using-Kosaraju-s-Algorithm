@@ -56,7 +56,32 @@ Clonez ce dépôt Git sur votre machine locale en utilisant la commande suivante
     ```
     git clone https://etulab.univ-amu.fr/b24027319/2sat-graph-solver.git
     ```
-2. 
+2. **Compilation du projet :**
+Pour compiler le projet, exécutez la commande suivante dans le terminal :
+    ```
+    cd chemin_vers_le_dossier\2sat-graph-solver\src
+   ```
+   après, exécutez la commande suivante :
+    ```
+    javac -d ../out/production/classes Main.java
+    ```
+   ```
+    javac -d ../out/production/classes Main.java
+    ```
+3. ** Exécution du programme :**
+Pour exécuter le programme, exécutez la commande suivante dans le terminal :
+    ```
+    cd ../out/production/classes
+    ```
+    ```
+    java Main <fileName> 
+    ```
+   o bien utiliser plusieurs fichiers en même temps :
+    ```
+    java Main <fileName1> <fileName2> <fileName3> ...
+    ```
+    où **fileName** est le nom du fichier texte en format DIMACS contenant la formule 2-SAT à résoudre.
+4. 
 
 ### Commandes :
 
