@@ -29,7 +29,7 @@
 
 ## Rapport
 ### Problèmes rencontrés :
-A remplir.
+On a pas rencontré des vrais problèmes à part le choix des structures de données à utiliser au début, mais ensuite c'était plutot que quelques difficultés de mise en lien des differente classes, mais en fain ona tout résolu
 
 ### Pourquoi cette méthode résout le problème 2-SAT :
 Rappelons que la méthode abordée dans ce TP consiste à construire un graphe d'implications à partir d'un fichier texte en format DIMACS, et puis appliquer l'algorithme de Kosaraju pour trouver les composantes fortement connexes.
@@ -45,7 +45,10 @@ La résolution du problème se fait en temps **polynomial**, en fait, l'algorith
 
 ### Le choix des structures de données :
 A remplir.
+Pour construire le graphe, on a opté pour une liste d'incidence en utilisant une *HashMap* dont les clés définies les différents sommets du graphe, et à chaque sommet on associe une *ArrayList* d'arcs.
 
+- Le choix de *HashMap*: Revient au problème des sommets qui sont représentés par des entiers négatifs qui désignent les négations des littéraux.
+- Le choix de *ArrayList*: Lors d'un parcours DFS, on a souvent besoin de parcourir toute la liste d'incidence d'un nœud. Dans ce cas, l'accès rapide à chaque élément favorise l'utilisation d'une ArrayList car l'accès à un élément dans une ArrayList est constant (O(1)).
 
 ## Guide d'utilisation
 ### Prérequis :
