@@ -53,7 +53,6 @@ public class CNFParser implements Parser {
         int notA = -literalA;
         implicationGraph.addArc(notA, literalB, "Implication " + ++counter);
         int notB = -literalB;
-        counter++;
         implicationGraph.addArc(notB, literalA, "Implication" + ++counter);
     }
 
