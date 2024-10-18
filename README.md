@@ -88,3 +88,25 @@ Clonez ce dépôt Git sur votre machine locale en utilisant la commande suivante
     ```
    où **fileName** est le nom du fichier texte en format DIMACS contenant la formule 2-SAT à résoudre.
 
+3.  **Utilisation avec jar :**
+
+Pour exécuter le programme en utilisant le fichier jar fourni, exécutez la commande suivante dans le terminal :
+
+Vous devez être dans le dossier `out` :
+
+```bash
+cd .\artifacts\2sat_graph_solver_jar\
+```
+
+Ensuite, exécutez la commande suivante pour un fichier unique :
+
+```bash
+java -jar 2sat-graph-solver.jar <fileName>
+```
+
+Vous pouvez également exécuter plusieurs fichiers en même temps avec la commande suivante :
+
+```bash
+java -jar 2sat-graph-solver.jar <fileName1> <fileName2> <fileName3> ...
+```
+
