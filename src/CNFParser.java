@@ -5,13 +5,13 @@ public class CNFParser implements Parser {
     private Graph<String> implicationGraph;  // Stores the graph of implications
     private int numVariables;  // Number of variables in the problem
     private int numClauses;  // Number of clauses in the file
-    private int counter = 0;
+    private int counter ;
 
-    // Constructor initializes the graph and other attributes
+    // Constructor initializes the number of variables and clauses
     public CNFParser() {
-        this.implicationGraph = new Graph<>();
         this.numVariables = 0;
         this.numClauses = 0;
+        this.counter = 0;
     }
 
     // Parse the .cnf file and build the implication graph
@@ -31,6 +31,9 @@ public class CNFParser implements Parser {
                     this.numClauses = Integer.parseInt(tokens[3]);
                     System.out.println("Number of variables: " + numVariables);
                     System.out.println("Number of clauses: " + numClauses);
+
+                    // Initialize the graph with size equal to number of variables * 2
+                    this.implicationGraph = new Graph<>(numVariables * 2);
                     continue;
                 }
 
