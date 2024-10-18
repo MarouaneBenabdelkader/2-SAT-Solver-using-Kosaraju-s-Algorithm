@@ -29,12 +29,13 @@ public class Main {
                 List<Set<Integer>> SCCs = kosaraju.findStronglyConnectedComponents();
 
                 // Check the satisfiability using the TwoSatSolver
-                TwoSatSolver twoSatSolver = new TwoSatSolver(graph);
+                TwoSatSolver twoSatSolver = new TwoSatSolver(SCCs);
                 boolean satisfiable = twoSatSolver.checkSatisfiability();
 
                 // Print result for the current file
                 if (satisfiable) {
                     System.out.println("Formula " + filename + ": satisfiable");
+                    System.out.println("Strongly connected components: " + SCCs);
                 } else {
                     System.out.println("Formula " + filename + ": unsatisfiable");
                 }

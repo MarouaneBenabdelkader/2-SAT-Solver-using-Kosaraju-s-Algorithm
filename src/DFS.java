@@ -38,7 +38,7 @@ public class DFS<Label> {
             }
         }
 
-        // If we're calculating finishing times, push the vertex onto the finish stack
+        //  Push the vertex onto the finish stack
         if (finishStack != null) {
             finishStack.push(vertex);
         }

@@ -27,7 +27,7 @@ public class Kosaraju<Label> {
         return SCCs;  // Return the list of strongly connected components
     }
 
-    // Perform the first pass of Kosaraju's algorithm (calculating finishing times)
+    // Perform the first pass of Kosaraju's algorithm
     private void performFirstPass(Stack<Integer> finishStack) {
         dfs.resetVisited();  // Reset visited set before first pass
         for (Integer vertex : graph.getVertices()) {

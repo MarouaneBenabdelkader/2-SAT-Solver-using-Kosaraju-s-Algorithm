@@ -5,20 +5,20 @@ import java.util.HashSet;
 
 public class Graph<Label> {
 
-    private HashMap<Integer, ArrayList<Edge<Label>>> adjacencyList;  // HashMap for adjacency lists
+    private HashMap<Integer, ArrayList<Edge<Label>>> incidenceList;  // HashMap for incidence lists
     private int maxSize;  // Maximum number of vertices allowed
     private Set<Integer> uniqueVertices;  // Set to track unique vertices
 
     // Default constructor: Initializes an empty graph with no size limit
     public Graph() {
-        adjacencyList = new HashMap<>();
+        incidenceList = new HashMap<>();
         uniqueVertices = new HashSet<>();
         maxSize = Integer.MAX_VALUE;  // No limit by default
     }
 
     // Constructor to initialize graph with a specified size (max number of vertices)
     public Graph(int size) {
-        adjacencyList = new HashMap<>(size);
+        incidenceList = new HashMap<>(size);
         uniqueVertices = new HashSet<>();
         maxSize = size;
     }
@@ -41,18 +41,18 @@ public class Graph<Label> {
         }
 
         // Ensure the source vertex has a list of edges in the adjacency list
-        adjacencyList.putIfAbsent(source, new ArrayList<>());
+        incidenceList.putIfAbsent(source, new ArrayList<>());
 
         // Add the new edge to the adjacency list for the source vertex
-        adjacencyList.get(source).add(new Edge<>(source, dest, label));
+        incidenceList.get(source).add(new Edge<>(source, dest, label));
 
         // Ensure destination exists even if it has no outgoing edges
-        adjacencyList.putIfAbsent(dest, new ArrayList<>());
+        incidenceList.putIfAbsent(dest, new ArrayList<>());
     }
 
     // Method to get the neighbors of a vertex
     public ArrayList<Edge<Label>> getNeighbors(int vertex) {
-        return adjacencyList.get(vertex);
+        return incidenceList.get(vertex);
     }
 
     public Set<Integer> getVertices() {
@@ -64,9 +64,10 @@ public class Graph<Label> {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("Graph adjacency list:\n");
-        for (Integer vertex : adjacencyList.keySet()) {
-            result.append("Vertex ").append(vertex).append(": ").append(adjacencyList.get(vertex).toString()).append("\n");
+        for (Integer vertex : incidenceList.keySet()) {
+            result.append("Vertex ").append(vertex).append(": ").append(incidenceList.get(vertex).toString()).append("\n");
         }
         return result.toString();
     }
+
 }
