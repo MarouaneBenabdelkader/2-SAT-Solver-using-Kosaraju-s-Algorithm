@@ -3,21 +3,18 @@ import java.util.List;
 import java.util.Set;
 
 public class TwoSatSolver {
-    private Graph<String> implicationGraph;
-    private Kosaraju<String> kosaraju;
+    private List<Set<Integer>> SCCs;
 
     // Constructor
-    public TwoSatSolver(Graph<String> implicationGraph) {
-        this.kosaraju = new Kosaraju<>(implicationGraph);
+    public TwoSatSolver(List<Set<Integer>> SCCs ) {
+        this.SCCs = SCCs;
     }
 
     // Method to check if the formula is satisfiable
-    public boolean checkSatisfiability() throws Exception {
-        // Run Kosaraju's algorithm to get the SCCs
-        List<Set<Integer>> SCCs = kosaraju.findStronglyConnectedComponents();
+    public boolean checkSatisfiability() {
 
         // Loop over each SCC to check for a literal and its negation
-        for (Set<Integer> scc : SCCs) {
+        for (Set<Integer> scc : this.SCCs) {
             Set<Integer> trackedLiterals = new HashSet<>();  // Track the literals we see in this SCC
 
             // Check if both a literal and its negation exist in this SCC
