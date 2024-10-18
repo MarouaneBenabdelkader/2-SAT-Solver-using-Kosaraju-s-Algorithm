@@ -80,13 +80,13 @@ Clonez ce dépôt Git sur votre machine locale en utilisant la commande suivante
     cd ../out/production/classes
     ```
     ```
-    java Main <fileName> 
+    java Main <filePath> 
     ```
    o bien utiliser plusieurs fichiers en même temps :
     ```
-    java Main <fileName1> <fileName2> <fileName3> ...
+    java Main <filePath1> <filePath2> <filePath3> ...
     ```
-   où **fileName** est le nom du fichier texte en format DIMACS contenant la formule 2-SAT à résoudre.
+   où **filePath** est le chemin vers fichier texte en format DIMACS contenant la formule 2-SAT à résoudre.
 
 3.  **Utilisation avec jar :**
 
@@ -101,12 +101,12 @@ cd .\artifacts\2sat_graph_solver_jar\
 Ensuite, exécutez la commande suivante pour un fichier unique :
 
 ```bash
-java -jar 2sat-graph-solver.jar <fileName>
+java -jar 2sat-graph-solver.jar <filePath>
 ```
 
 Vous pouvez également exécuter plusieurs fichiers en même temps avec la commande suivante :
 
 ```bash
-java -jar 2sat-graph-solver.jar <fileName1> <fileName2> <fileName3> ...
+java -jar 2sat-graph-solver.jar <filePath1> <filePath2> <filePath3> ...
 ```
 
