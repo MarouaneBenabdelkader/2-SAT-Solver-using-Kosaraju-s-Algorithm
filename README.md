@@ -1,22 +1,6 @@
 # Le problème 2-SAT en Java
 
 
-## Binôme
-*Ce travail est réalisé dans le cadre du TP1 d'Algorithmique par les deux étudiants :*
-
-- [ ] **BENABDELKADER Marouane**
-- [ ] **DAIM Imad**
-
-*L3 informatique - Groupe 2.*
-
-*2024-2025.*
-
-*Luminy.*
-
-
-## Contenu du fichier README
-### [Rapport](#rapport)
-- Problèmes rencontrés.
 - Pourquoi cette méthode résout le problème 2-SAT.
 - Complexité.
 - Le choix des structures de données.
@@ -26,10 +10,6 @@
 - Installation.
 - autre.
 
-
-## Rapport
-### Problèmes rencontrés :
-On a pas rencontré des vrais problèmes à part le choix des structures de données à utiliser au début, mais ensuite c'était plutot que quelques difficultés de mise en lien des differente classes, mais en fain ona tout résolu
 
 ### Pourquoi cette méthode résout le problème 2-SAT :
 Rappelons que la méthode abordée dans ce TP consiste à construire un graphe d'implications à partir d'un fichier texte en format DIMACS, et puis appliquer l'algorithme de Kosaraju pour trouver les composantes fortement connexes.
