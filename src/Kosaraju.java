@@ -40,7 +40,7 @@ public class Kosaraju<Label> {
     // Perform the second pass of Kosaraju's algorithm (finding SCCs)
     private void performSecondPass(Stack<Integer> finishStack, List<Set<Integer>> SCCs) {
         dfs = new DFS<>(transposedGraph);  // Create a new DFS object for the transposed graph
-        dfs.resetVisited();  // Reset visited set before second pass
+//        dfs.resetVisited();  // Reset visited set before second pass
 
         while (!finishStack.isEmpty()) {
             Integer vertex = finishStack.pop();  // Process nodes in the order of finishing times

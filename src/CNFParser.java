@@ -14,7 +14,7 @@ public class CNFParser implements Parser {
         this.counter = 0;
     }
 
-    // Parse the .cnf file and build the implication graph
+    // Parse the .cnf or .txt file and build the implication graph
     @Override
     public void parse(String filename) throws Exception {
         try (Scanner scanner = new Scanner(new File(filename))) {
