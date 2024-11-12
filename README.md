@@ -12,7 +12,7 @@
 
 
 ### Pourquoi cette méthode résout le problème 2-SAT :
-Rappelons que la méthode abordée dans ce TP consiste à construire un graphe d'implications à partir d'un fichier texte en format DIMACS, et puis appliquer l'algorithme de Kosaraju pour trouver les composantes fortement connexes.
+Rappelons que la méthode abordée consiste à construire un graphe d'implications à partir d'un fichier texte en format DIMACS, et puis appliquer l'algorithme de Kosaraju pour trouver les composantes fortement connexes.
 
 Une composante fortement connexe est un sous-ensemble de sommets dans lequel chaque sommet est accessible depuis tous les autres sommets de cette composante.
 
